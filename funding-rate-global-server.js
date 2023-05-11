@@ -234,58 +234,58 @@ getFundingRate();
 // código funding rate global 
 
 async function main() {
-    const [volume, fundingRate] = await Promise.all([getVolume(), getFundingRate()]);
-
+    let volume, fundingRate;
+  
+    do {
+      volume = await getVolume();
+      fundingRate = await getFundingRate();
+    } while (Object.keys(fundingRate).length !== Object.keys(volume).length);
+  
     let totalVolume = 0;
     let fundingRateValues = {
-        Deribit: 0,
-        Bitget: 0,
-        Bybit: 0,
-        BybitUSD: 0,
-        Bitmex: 0,
-        OKX: 0,
-        OKXUSD: 0,
-        Huobi: 0,
-        BinanceUSDT: 0,
-        BinanceUSD: 0
-    }; // Objeto para armazenar os valores de "exchangeFundingRate * exchangeVolume"
-
+      Deribit: 0,
+      Bitget: 0,
+      Bybit: 0,
+      BybitUSD: 0,
+      Bitmex: 0,
+      OKX: 0,
+      OKXUSD: 0,
+      Huobi: 0,
+      BinanceUSDT: 0,
+      BinanceUSD: 0
+    };
+  
     for (const exchange in volume) {
-        const exchangeVolume = volume[exchange];
-        const exchangeFundingRate = fundingRate[exchange];
-
-        totalVolume += exchangeVolume;
-
-        // console.log(exchange, exchangeVolume);
-
-        if (exchangeFundingRate !== undefined) {
-            const fundingRateValue = exchangeFundingRate * exchangeVolume;
-            fundingRateValues[exchange] = fundingRateValue;
-            // console.log(exchange, exchangeFundingRate);
-            //  console.log(exchange, fundingRateValue);
-        } else {
-            console.log(`Exchange ${exchange} não possui taxa de financiamento.`);
-        }
+      const exchangeVolume = volume[exchange];
+      const exchangeFundingRate = fundingRate[exchange];
+  
+      totalVolume += exchangeVolume;
+  
+      if (exchangeFundingRate !== undefined) {
+        const fundingRateValue = exchangeFundingRate * exchangeVolume;
+        fundingRateValues[exchange] = fundingRateValue;
+      } else {
+        console.log(`Exchange ${exchange} não possui taxa de financiamento.`);
+      }
     }
-
+  
     console.log('fundingRateValues:', fundingRateValues);
-
+  
     const totalFundingRate = Object.values(fundingRateValues).reduce((acc, value) => acc + value, 0);
-
-    // console.log('totalFundingRate:', totalFundingRate.toFixed(1));
     console.log((totalFundingRate / totalVolume).toFixed(5));
+  
     if (totalVolume === 0) {
-        return 0;
+      return 0;
     }
-
-
+  
     if (Object.keys(fundingRateValues).length !== Object.keys(volume).length) {
-        console.log('Erro: nem todos os valores de "exchangeFundingRate * exchangeVolume" foram incluídos no cálculo de totalFundingRate.');
+      console.log('Erro: nem todos os valores de "exchangeFundingRate * exchangeVolume" foram incluídos no cálculo de totalFundingRate.');
+      // Você pode adicionar mais lógica aqui, se necessário
     }
-
+  
     return totalFundingRate / totalVolume;
-}
-
+  }
+  
 
 main().then(globalFundingRate => {
     console.log(`Global funding rate: ${globalFundingRate.toFixed(5)}%`);
