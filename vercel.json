@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "builds": [
+      { "src": "funding-rate-global-server.js", "use": "@vercel/node" }
+    ],
+    "routes": [
+      { "src": "/funding-rate", "dest": "funding-rate-global-server.js" },
+      { "src": "/global-funding-rate", "dest": "funding-rate-global-server.js" },
+      { "src": "/volume", "dest": "funding-rate-global-server.js" },
+      { "src": "/funding-rate-data-json", "dest": "funding-rate-global-server.js" },
+      { "src": "/cron", "dest": "funding-rate-global-server.js" }
+    ],
+    "env": {
+      "PORT": "3000"
+    },
+    "events": {
+      "schedule": [
+        { "cron": "0 */30 * * * *" }
+      ]
+    }
+  }
+  
