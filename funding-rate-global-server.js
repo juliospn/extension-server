@@ -126,7 +126,7 @@ function getVolume() {
                         btcVolume = jsonData.quoteVolume;
                         break;
                     case 'BinanceUSD':
-                        btcVolume = jsonData[0].volume;
+                        btcVolume = jsonData[0]?.volume;
                         break;
                 }
                 volumeObj[exchange.name] = Math.trunc(btcVolume);
@@ -205,7 +205,7 @@ async function getFundingRate() {
                                 rate = parseFloat(JSON.parse(data).lastFundingRate * 100).toFixed(4);
                                 break;
                             case 'BinanceUSD':
-                                rate = parseFloat(JSON.parse(data)[0].lastFundingRate * 100).toFixed(4);
+                                rate = parseFloat(JSON.parse(data)[0]?.lastFundingRate * 100).toFixed(4);
                                 break;
                         }
                         fundingRate[exchange.name] = rate;
