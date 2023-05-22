@@ -9,14 +9,14 @@ To get started with this project, follow the steps below:
 
 2. Install the dependencies by running the following command in the project directory:
 
-shell
-Copy code
+```shell
 npm install
+```
 3. Run the server using the following command:
 
-shell
-Copy code
+```shell
 node server.js
+```
 4. The server will start running on the default port 3000. You can access the endpoints using a tool like cURL or Postman.
 
 # API Endpoints
@@ -56,4 +56,5 @@ The project uses the following dependencies:
 # Notes
 + The server uses the Access-Control-Allow-Origin header to allow cross-origin requests from any origin (*).
 + The port for the server is set to either the value of the PORT environment variable or 3000 if the environment variable is not set.
+
 Feel free to explore the code and modify it according to your needs. If you have any questions or run into any issues, please let me know.
