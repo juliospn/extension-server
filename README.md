@@ -54,6 +54,6 @@ The project uses the following dependencies:
 + moment: A lightweight JavaScript date library for parsing, manipulating, and formatting dates.
 
 # Notes
-The server uses the Access-Control-Allow-Origin header to allow cross-origin requests from any origin (*).
-The port for the server is set to either the value of the PORT environment variable or 3000 if the environment variable is not set.
++ The server uses the Access-Control-Allow-Origin header to allow cross-origin requests from any origin (*).
++ The port for the server is set to either the value of the PORT environment variable or 3000 if the environment variable is not set.
 Feel free to explore the code and modify it according to your needs. If you have any questions or run into any issues, please let me know.
